@@ -1,0 +1,169 @@
+[1mdiff --git a/pom.xml b/pom.xml[m
+[1mindex 284cb37..44a4403 100644[m
+[1m--- a/pom.xml[m
+[1m+++ b/pom.xml[m
+[36m@@ -38,12 +38,26 @@[m
+ 		    <version>2.8.5</version>[m
+ 		</dependency>[m
+ [m
+[32m+[m
+[32m+[m[32m        <dependency>[m
+[32m+[m[32m            <groupId>org.springframework.boot</groupId>[m
+[32m+[m[32m            <artifactId>spring-boot-starter-data-jpa</artifactId>[m
+[32m+[m[32m        </dependency>[m
+[32m+[m
+ 		<dependency>[m
+[31m-			<groupId>org.springframework.boot</groupId>[m
+[31m-			<artifactId>spring-boot-starter-security</artifactId>[m
+[32m+[m			[32m<groupId>org.projectlombok</groupId>[m
+[32m+[m			[32m<artifactId>lombok</artifactId>[m
+[32m+[m			[32m<version>1.18.22</version>[m
+[32m+[m			[32m<scope>provided</scope>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>com.h2database</groupId>[m
+[32m+[m			[32m<artifactId>h2</artifactId>[m
+[32m+[m			[32m<scope>runtime</scope>[m
+ 		</dependency>[m
+ [m
+[31m-	</dependencies>[m
+[32m+[m[32m    </dependencies>[m
+ [m
+ 	<build>[m
+ 		<plugins>[m
+[1mdiff --git a/src/main/java/com/kakao/app/Controller/UserController.java b/src/main/java/com/kakao/app/Controller/UserController.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..287f5e5[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/kakao/app/Controller/UserController.java[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mpackage com.kakao.app.Controller;[m
+[32m+[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RestController;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32mpublic class UserController {[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/kakao/app/Entity/UserEntity.java b/src/main/java/com/kakao/app/Entity/UserEntity.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9541369[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/kakao/app/Entity/UserEntity.java[m
+[36m@@ -0,0 +1,22 @@[m
+[32m+[m[32mpackage com.kakao.app.Entity;[m
+[32m+[m
+[32m+[m[32mimport lombok.AllArgsConstructor;[m
+[32m+[m[32mimport lombok.Getter;[m
+[32m+[m[32mimport lombok.NoArgsConstructor;[m
+[32m+[m[32mimport lombok.Setter;[m
+[32m+[m
+[32m+[m[32mimport javax.persistence.*;[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@Getter[m
+[32m+[m[32m@Entity[m
+[32m+[m[32m@NoArgsConstructor[m
+[32m+[m[32m@AllArgsConstructor[m
+[32m+[m[32m@Table(name="user")[m
+[32m+[m[32mpublic class UserEntity {[m
+[32m+[m[32m    @Id[m
+[32m+[m[32m    @GeneratedValue(strategy = GenerationType.IDENTITY)[m
+[32m+[m[32m    private Long userId; // user_id[m
+[32m+[m[32m    private String nickname;[m
+[32m+[m[32m    private Long time;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/kakao/app/HomeController.java b/src/main/java/com/kakao/app/HomeController.java[m
+[1mindex 2232203..ff306f5 100644[m
+[1m--- a/src/main/java/com/kakao/app/HomeController.java[m
+[1m+++ b/src/main/java/com/kakao/app/HomeController.java[m
+[36m@@ -43,7 +43,7 @@[m [mpublic class HomeController {[m
+ 		mav.setViewName("index");[m
+ 		return mav;[m
+ 	}[m
+[31m-	[m
+[32m+[m	[32m//언니 바보[m
+ 	[m
+ 	[m
+ }[m
+[1mdiff --git a/src/main/java/com/kakao/app/Repository/UserRepository.java b/src/main/java/com/kakao/app/Repository/UserRepository.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..363f973[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/kakao/app/Repository/UserRepository.java[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mpackage com.kakao.app.Repository;[m
+[32m+[m
+[32m+[m[32mimport org.apache.tomcat.jni.User;[m
+[32m+[m[32mimport org.springframework.data.jpa.repository.JpaRepository;[m
+[32m+[m
+[32m+[m[32mpublic interface UserRepository extends JpaRepository<User, Long> {[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/kakao/app/Service/UserService.java b/src/main/java/com/kakao/app/Service/UserService.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7373af0[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/kakao/app/Service/UserService.java[m
+[36m@@ -0,0 +1,14 @@[m
+[32m+[m[32mpackage com.kakao.app.Service;[m
+[32m+[m
+[32m+[m[32mimport com.kakao.app.Repository.UserRepository;[m
+[32m+[m[32mimport lombok.RequiredArgsConstructor;[m
+[32m+[m[32mimport org.springframework.stereotype.Service;[m
+[32m+[m
+[32m+[m[32m@Service[m
+[32m+[m[32m@RequiredArgsConstructor[m
+[32m+[m[32mpublic class UserService {[m
+[32m+[m[32m    private final UserRepository userRepository;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/resources/application.properties b/src/main/resources/application.properties[m
+[1mindex 7156420..22bf63f 100644[m
+[1m--- a/src/main/resources/application.properties[m
+[1m+++ b/src/main/resources/application.properties[m
+[36m@@ -1,22 +1,25 @@[m
+[31m-server.port = 8080[m
+[32m+[m[32m# ?? ?? ??[m
+[32m+[m[32mserver.port=8080[m
+ [m
+[31m-spring.thymeleaf.prefix=classpath:templates/[m
+[31m-spring.thymeleaf.check-template-location=true[m
+[32m+[m[32m# Thymeleaf ??? ??[m
+[32m+[m[32mspring.thymeleaf.prefix=classpath:/templates/[m
+ spring.thymeleaf.suffix=.html[m
+ spring.thymeleaf.mode=HTML5[m
+ spring.thymeleaf.cache=false[m
+[31m-spring.thymeleaf.order=0[m
+[32m+[m[32mspring.thymeleaf.check-template-location=true[m
+[32m+[m
+[32m+[m[32m# ??? ?? ??[m
+[32m+[m[32mspring.datasource.url=jdbc:h2:mem:testdb[m
+[32m+[m[32mspring.datasource.generate-unique-name=false[m
+[32m+[m
+[32m+[m[32m# JPA ??[m
+[32m+[m[32mspring.jpa.show-sql=true[m
+[32m+[m[32mspring.jpa.defer-datasource-initialization=true[m
+[32m+[m[32mspring.jpa.properties.hibernate.format_sql=true[m
+ [m
+[31m-#registration[m
+[31m-spring.security.oauth2.client.registration.naver.client-name=naver[m
+[31m-spring.security.oauth2.client.registration.naver.client-id=b1b80492793b20e43c9ca48753cbaa65[m
+[31m-spring.security.oauth2.client.registration.naver.client-secret=VJLQncidN5xl65o0qMgqnimchTRmeKTT[m
+[31m-spring.security.oauth2.client.registration.naver.redirect-uri=http://localhost:8080/login/oauth2/code/naver[m
+[31m-spring.security.oauth2.client.registration.naver.authorization-grant-type=authorization_code[m
+[31m-spring.security.oauth2.client.registration.naver.scope=name,email[m
+[32m+[m[32m# H2 Console ??[m
+[32m+[m[32mspring.h2.console.enabled=true[m
+ [m
+[31m-#provider[m
+[31m-spring.security.oauth2.client.provider.naver.authorization-uri=https://nid.naver.com/oauth2.0/authorize[m
+[31m-spring.security.oauth2.client.provider.naver.token-uri=https://nid.naver.com/oauth2.0/token[m
+[31m-spring.security.oauth2.client.provider.naver.user-info-uri=https://openapi.naver.com/v1/nid/me[m
+[31m-spring.security.oauth2.client.provider.naver.user-name-attribute=response[m
+[32m+[m[32m# ?? ??[m
+[32m+[m[32mlogging.level.org.hibernate.SQL=DEBUG[m
+[32m+[m[32mlogging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE[m
