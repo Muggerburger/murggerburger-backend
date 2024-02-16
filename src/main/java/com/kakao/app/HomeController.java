@@ -43,7 +43,7 @@ public class HomeController {
 		mav.setViewName("index");
 		return mav;
 	}
-	
+	//언니 바보
 	
 	
 }
