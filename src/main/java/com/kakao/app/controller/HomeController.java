@@ -1,34 +1,42 @@
-package com.kakao.app;
+package com.kakao.app.controller;
 
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.kakao.app.api.KakaoAPI;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+@Slf4j
 @RestController
 public class HomeController {
 
 	KakaoAPI kakaoApi = new KakaoAPI();
 	
-	@RequestMapping(value="/login")
+	@GetMapping("/login")
 	public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
+		System.out.println("code = " + code);
+		log.info("Reqeust login");
+
 		ModelAndView mav = new ModelAndView();
 		// 1번 인증코드 요청 전달
+
+		log.info("Reqeust getAccessToken()");
+
 		String accessToken = kakaoApi.getAccessToken(code);
+
+		log.info("Response getAccessToken : {}", accessToken);
+
+		log.info("Request getUserInfo()");
 		// 2번 인증코드로 토큰 전달
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
+
+		log.info("Response getUserInfo");
 		
 		System.out.println("login info : " + userInfo.toString());
-		
-		if(userInfo.get("email") != null) {
-			session.setAttribute("userId", userInfo.get("email"));
-			session.setAttribute("accessToken", accessToken);
-		}
-		mav.addObject("userId", userInfo.get("email"));
+
 		mav.setViewName("index");
 		return mav;
 	}
@@ -43,7 +51,7 @@ public class HomeController {
 		mav.setViewName("index");
 		return mav;
 	}
-	
+	//언니 바보
 	
 	
 }
