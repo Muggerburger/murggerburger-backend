@@ -13,17 +13,17 @@ import javax.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId; // user_id
+    private Long id;
     private String nickname;
     private Long time;
 
     @Builder
-    public UserEntity(Long userId, String nickname, Long time){
-        this.userId=userId;
+    public UserEntity(String nickname, Long time){
         this.nickname=nickname;
         this.time=time;
     }
 
     public void setTime(Long time) {
+        this.time=time;
     }
 }

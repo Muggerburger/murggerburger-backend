@@ -10,20 +10,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RankRequest {
-    private Long userId;
+
     private String nickname;
     private Long time;
 
     @Builder
-    public RankRequest(Long userId, String nickname, Long time){
-        this.userId=userId;
+    public RankRequest(String nickname, Long time){
         this.nickname=nickname;
         this.time=time;
     }
 
     public UserEntity toEntity(){ //dto를 엔티티로 만들어주는 메서드
         return UserEntity.builder()
-                .userId(userId)
                 .nickname(nickname)
                 .time(time)
                 .build();
