@@ -74,8 +74,8 @@ public class KakaoAPI {
 	}
 
 	
-	public HashMap<String, Object> getUserInfo(String accessToken) {
-		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+	public KakaoDto getUserInfo(String accessToken) {
+
 		String reqUrl = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqUrl);
@@ -106,16 +106,11 @@ public class KakaoAPI {
 
 			System.out.println(nickname);
 
-			KakaoDto kakaoDto = new KakaoDto(nickname);
-
-			userInfo.put("nickname", nickname);
-
-
-			
+			return new KakaoDto(nickname);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return userInfo;
+		return null;
 	}
 
 

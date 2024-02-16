@@ -3,6 +3,7 @@ package com.kakao.app.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 
@@ -18,4 +19,9 @@ public class UserEntity {
     private Long userId; // user_id
     private String nickname;
     private Long time;
+
+    public UserEntity(String nickname, Long time){
+        this.nickname = nickname;
+        this.time = time;
+    }
 }
