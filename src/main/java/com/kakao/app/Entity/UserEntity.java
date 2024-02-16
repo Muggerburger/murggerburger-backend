@@ -17,6 +17,6 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId; // user_id
-    private String email;
+    private String nickname;
     private Long time;
 }
