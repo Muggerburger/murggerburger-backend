@@ -1,4 +1,4 @@
-package com.kakao.app.Controller;
+package com.kakao.app.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
