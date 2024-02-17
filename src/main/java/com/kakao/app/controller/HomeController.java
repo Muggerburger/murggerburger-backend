@@ -5,9 +5,11 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.kakao.app.Entity.UserEntity;
 import com.kakao.app.api.KakaoAPI;
 import com.kakao.app.dto.KakaoDto;
 import com.kakao.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,17 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class HomeController {
-
-
 	private final UserService userService;
 
 	KakaoAPI kakaoApi = new KakaoAPI();
-
-	@Autowired
-	public HomeController(UserService userService) {
-		this.userService = userService;
-	}
 
 	@GetMapping("/login")
 	public ResponseEntity<String> login(@RequestParam("code") String code, HttpSession session) {
@@ -49,12 +45,10 @@ public class HomeController {
 
 		log.info("Response getUserInfo");
 
-		String nickname = userService.save(kakaoDto.getNickname());
+		UserEntity userEntity = userService.save(kakaoDto.getNickname());
 
-		System.out.println(nickname);
+		log.info("save nickname");
 
-		mav.addObject("TOKEN", accessToken);
-		mav.setViewName("index");
 		return ResponseEntity.ok(accessToken);
 	}
 
