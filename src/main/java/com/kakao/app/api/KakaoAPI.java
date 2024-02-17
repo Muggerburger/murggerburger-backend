@@ -114,8 +114,8 @@ public class KakaoAPI {
 	}
 
 
-	public void kakaoLogout(String accessToken) {
-		String reqURL = "http://kapi.kakao.com/v1/user/logout";
+	public void logout(String accessToken) {
+		String reqURL = "https://kapi.kakao.com/v1/user/logout";
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -132,14 +132,9 @@ public class KakaoAPI {
 			while((line = br.readLine()) != null) {
 				result+=line;
 			}
-			System.out.println(result);
+			log.info("result : {}", result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-
-
 }

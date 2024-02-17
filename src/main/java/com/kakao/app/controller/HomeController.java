@@ -2,6 +2,7 @@ package com.kakao.app.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.kakao.app.api.KakaoAPI;
@@ -9,6 +10,8 @@ import com.kakao.app.dto.KakaoDto;
 import com.kakao.app.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +30,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/login")
-	public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
+	public ResponseEntity<String> login(@RequestParam("code") String code, HttpSession session) {
 		System.out.println("code = " + code);
 		log.info("Reqeust login");
 
@@ -52,17 +55,24 @@ public class HomeController {
 
 		mav.addObject("TOKEN", accessToken);
 		mav.setViewName("index");
-		return mav;
+		return ResponseEntity.ok(accessToken);
 	}
-	
+
+	@CrossOrigin
 	@PostMapping("/logout")
-	public ModelAndView logout(HttpSession session) {
+	public ResponseEntity<String> logout(HttpSession session, HttpServletRequest httpServletRequest) {
+
+		String authorizationHeader = httpServletRequest.getHeader("Authorization");
+		session.setAttribute("accessToken", authorizationHeader);
+
 		ModelAndView mav = new ModelAndView();
 
-		kakaoApi.kakaoLogout((String) session.getAttribute("accessToken"));
+		log.info("accessToken : {}", session.getAttribute("accessToken"));
+
+		kakaoApi.logout((String) session.getAttribute("accessToken"));
 		session.removeAttribute("accessToken");
 		session.removeAttribute("userId");
 		mav.setViewName("index");
-		return mav;
+		return ResponseEntity.ok().body("{\"message\": \"success\"}");
 	}
 }
