@@ -1,6 +1,6 @@
-package com.kakao.app.Repository;
+package com.kakao.app.repository;
 
-import com.kakao.app.Entity.UserEntity;
+import com.kakao.app.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

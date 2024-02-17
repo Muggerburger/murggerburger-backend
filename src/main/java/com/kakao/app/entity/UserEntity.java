@@ -1,4 +1,4 @@
-package com.kakao.app.Entity;
+package com.kakao.app.entity;
 
 import lombok.*;
 

@@ -38,7 +38,7 @@
 [1m--- /dev/null[m
 [1m+++ b/src/main/java/com/kakao/app/Controller/UserController.java[m
 [36m@@ -0,0 +1,8 @@[m
-[32m+[m[32mpackage com.kakao.app.Controller;[m
+[32m+[m[32mpackage com.kakao.app.controller;[m
 [32m+[m
 [32m+[m[32mimport org.springframework.web.bind.annotation.RestController;[m
 [32m+[m
@@ -52,7 +52,7 @@
 [1m--- /dev/null[m
 [1m+++ b/src/main/java/com/kakao/app/Entity/UserEntity.java[m
 [36m@@ -0,0 +1,22 @@[m
-[32m+[m[32mpackage com.kakao.app.Entity;[m
+[32m+[m[32mpackage com.kakao.app.entity;[m
 [32m+[m
 [32m+[m[32mimport lombok.AllArgsConstructor;[m
 [32m+[m[32mimport lombok.Getter;[m
@@ -93,7 +93,7 @@
 [1m--- /dev/null[m
 [1m+++ b/src/main/java/com/kakao/app/Repository/UserRepository.java[m
 [36m@@ -0,0 +1,8 @@[m
-[32m+[m[32mpackage com.kakao.app.Repository;[m
+[32m+[m[32mpackage com.kakao.app.repository;[m
 [32m+[m
 [32m+[m[32mimport org.apache.tomcat.jni.User;[m
 [32m+[m[32mimport org.springframework.data.jpa.repository.JpaRepository;[m
@@ -107,9 +107,9 @@
 [1m--- /dev/null[m
 [1m+++ b/src/main/java/com/kakao/app/Service/UserService.java[m
 [36m@@ -0,0 +1,14 @@[m
-[32m+[m[32mpackage com.kakao.app.Service;[m
+[32m+[m[32mpackage com.kakao.app.service;[m
 [32m+[m
-[32m+[m[32mimport com.kakao.app.Repository.UserRepository;[m
+[32m+[m[32mimport com.kakao.app.repository.UserRepository;[m
 [32m+[m[32mimport lombok.RequiredArgsConstructor;[m
 [32m+[m[32mimport org.springframework.stereotype.Service;[m
 [32m+[m

@@ -1,21 +1,16 @@
 package com.kakao.app.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.kakao.app.Entity.UserEntity;
+import com.kakao.app.entity.UserEntity;
 import com.kakao.app.api.KakaoAPI;
 import com.kakao.app.dto.KakaoDto;
 import com.kakao.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
@@ -26,12 +21,9 @@ public class HomeController {
 	KakaoAPI kakaoApi = new KakaoAPI();
 
 	@GetMapping("/login")
-	public ResponseEntity<String> login(@RequestParam("code") String code, HttpSession session) {
+	public ResponseEntity<KakaoDto> login(@RequestParam("code") String code, HttpSession session) {
 		System.out.println("code = " + code);
 		log.info("Reqeust login");
-
-		ModelAndView mav = new ModelAndView();
-		// 1번 인증코드 요청 전달
 
 		log.info("Reqeust getAccessToken()");
 
@@ -42,6 +34,7 @@ public class HomeController {
 		log.info("Request getUserInfo()");
 		// 2번 인증코드로 토큰 전달
 		KakaoDto kakaoDto = kakaoApi.getUserInfo(accessToken);
+		kakaoDto.setAccessToken(accessToken);
 
 		log.info("Response getUserInfo");
 
@@ -49,7 +42,7 @@ public class HomeController {
 
 		log.info("save nickname");
 
-		return ResponseEntity.ok(accessToken);
+		return ResponseEntity.ok().body(kakaoDto);
 	}
 
 	@CrossOrigin
@@ -59,14 +52,11 @@ public class HomeController {
 		String authorizationHeader = httpServletRequest.getHeader("Authorization");
 		session.setAttribute("accessToken", authorizationHeader);
 
-		ModelAndView mav = new ModelAndView();
-
 		log.info("accessToken : {}", session.getAttribute("accessToken"));
 
 		kakaoApi.logout((String) session.getAttribute("accessToken"));
 		session.removeAttribute("accessToken");
 		session.removeAttribute("userId");
-		mav.setViewName("index");
 		return ResponseEntity.ok().body("{\"message\": \"success\"}");
 	}
 }

@@ -1,13 +1,12 @@
-package com.kakao.app.Service;
+package com.kakao.app.service;
 
-import com.kakao.app.Entity.UserEntity;
-import com.kakao.app.Repository.UserRepository;
+import com.kakao.app.entity.UserEntity;
+import com.kakao.app.repository.UserRepository;
 import com.kakao.app.dto.RankRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 

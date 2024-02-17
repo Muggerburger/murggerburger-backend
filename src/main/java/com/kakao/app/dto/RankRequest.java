@@ -1,6 +1,6 @@
 package com.kakao.app.dto;
 
-import com.kakao.app.Entity.UserEntity;
+import com.kakao.app.entity.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

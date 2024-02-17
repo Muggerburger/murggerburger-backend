@@ -12,4 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class KakaoDto {
     private String nickname;
+    private String accessToken;
+
+    public KakaoDto(String nickname){
+        this.nickname = nickname;
+    }
 }
